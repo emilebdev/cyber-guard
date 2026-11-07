@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Analisar ameaça | CyberGuard{% endblock %}
+{% block content %}
+<div class="page-heading"><div><div class="eyebrow">ANÁLISE DE SEGURANÇA</div><h1>Assistente CyberGuard</h1><p class="muted">Conte o que aconteceu. Vamos ajudar você a identificar possíveis riscos.</p></div><a class="btn btn-outline" href="{{ url_for('chat') }}" data-new-chat>＋ Nova conversa</a></div>
+<div class="chat-layout">
+  <section class="chat-panel">
+    <div class="chat-messages" id="chatMessages" data-conversation-id="{{ active.id if active else '' }}">
+      {% if active %}
+        {% for m in active.messages %}
+          <div class="message {{ m.role }}"><div class="message-avatar">{{ 'Você' if m.role == 'user' else 'CG' }}</div><div class="message-bubble">{% if m.role == 'assistant' %}{% set code = m.risk|vcode %}{% if code %}<div class="verdict v-{{ code }}">{{ VERDICT_LABELS[code] }}</div>{% endif %}<div class="answer-text">{{ m.content|replace('**','') }}</div>{% else %}{{ m.content }}{% endif %}</div></div>
+        {% endfor %}
+      {% else %}
+        <div class="chat-welcome"><div class="chat-welcome-icon">✓</div><h2>Como posso ajudar você hoje?</h2><p>Você pode escrever sua dúvida ou escolher um exemplo abaixo.</p>
+          <div class="prompt-grid"><button class="prompt-chip">Recebi uma mensagem dizendo que minha conta será bloqueada.</button><button class="prompt-chip">Estão pedindo um código que chegou no meu celular. O que faço?</button><button class="prompt-chip">Como saber se uma loja virtual é confiável?</button><button class="prompt-chip">Me ligaram pedindo um Pix urgente de um parente.</button></div>
+        </div>
+      {% endif %}
+    </div>
+    <form class="chat-composer" id="chatForm"><label class="sr-only" for="chatInput">Digite sua dúvida</label><textarea id="chatInput" maxlength="5000" placeholder="Descreva a situação ou cole a mensagem que recebeu..." rows="2" required></textarea><div class="composer-bottom"><span>Não envie senhas, códigos ou dados bancários.</span><button class="btn btn-primary" type="submit">Enviar <span>↑</span></button></div></form>
+    <div class="chat-disclaimer">As respostas são orientações educativas e não garantem a autenticidade de links, mensagens ou remetentes.</div>
+  </section>
+</div>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='js/chat.js') }}"></script>{% endblock %}

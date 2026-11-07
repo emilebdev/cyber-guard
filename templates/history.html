@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% block title %}Histórico | CyberGuard{% endblock %}
+{% block content %}
+<div class="page-heading"><div><div class="eyebrow">SUAS CONSULTAS</div><h1>Histórico de conversas</h1><p class="muted">Consulte análises e orientações anteriores.</p></div><a class="btn btn-primary" href="{{ url_for('chat') }}">＋ Nova análise</a></div>
+{% if conversations %}<div class="list-card history-list">{% for c in conversations %}<div class="history-item"><a class="conversation-row" href="{{ url_for('chat', id=c.id) }}"><span class="conversation-icon">◷</span><span><strong>{{ c.title }}</strong><small>{{ c.created_at.strftime('%d/%m/%Y às %H:%M') }} · {{ c.messages|length }} mensagens</small></span><span class="row-arrow">→</span></a><form method="POST" action="{{ url_for('delete_conversation', conversation_id=c.id) }}" onsubmit="return confirm('Deseja excluir esta conversa?')"><button class="delete-button" type="submit" aria-label="Excluir conversa">Excluir</button></form></div>{% endfor %}</div>{% else %}<div class="empty-state"><span>◷</span><h2>Seu histórico está vazio</h2><p>Quando você conversar com o CyberGuard, suas consultas aparecerão aqui.</p><a class="btn btn-primary" href="{{ url_for('chat') }}">Fazer primeira análise</a></div>{% endif %}
+{% endblock %}

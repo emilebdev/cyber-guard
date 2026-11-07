@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Entrar | CyberGuard{% endblock %}
+{% block auth_content %}
+<div class="auth-page">
+  <button class="icon-button font-toggle auth-font" aria-label="Aumentar letra" title="Aumentar letra">A+</button>
+  <button class="icon-button theme-toggle auth-theme" aria-label="Alternar tema">☾</button>
+  <div class="auth-brand"><div class="brand-symbol">✓</div><h1>Cyber<span class="brand-accent">Guard</span></h1><p>Segurança digital ao alcance de todos.</p></div>
+  <section class="auth-card">
+    <div class="eyebrow"><span class="status-dot"></span> AMBIENTE DE PROTEÇÃO DIGITAL</div>
+    <h2>Bem-vindo de volta!</h2>
+    <p class="muted">Entre na sua conta para navegar com mais segurança.</p>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}{% for category, message in messages %}<div class="flash {{ category }}">{{ message }}</div>{% endfor %}{% endif %}
+    {% endwith %}
+    <form method="POST" class="form-stack">
+      <label for="email">E-mail</label><input id="email" name="email" type="email" placeholder="seuemail@exemplo.com" autocomplete="username" required>
+      <label for="password">Senha</label><input id="password" name="password" type="password" placeholder="Digite sua senha" autocomplete="current-password" required>
+      <button class="btn btn-primary btn-full" type="submit">Entrar na minha conta <span>→</span></button>
+    </form>
+    <div class="demo-box"><strong>Conta para demonstração</strong><span>E-mail: teste@cyberguard.local</span><span>Senha: Teste@123</span></div>
+    <p class="auth-switch">Ainda não tem uma conta? <a href="{{ url_for('register') }}">Criar conta</a></p>
+  </section>
+  <p class="auth-foot">Sua proteção começa com a informação.</p>
+</div>
+{% endblock %}

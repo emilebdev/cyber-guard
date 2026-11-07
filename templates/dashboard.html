@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Início | CyberGuard{% endblock %}
+{% block content %}
+<div class="welcome-row">
+  <div><div class="eyebrow">SEU ASSISTENTE DE SEGURANÇA</div><h1>Olá, {{ user.name.split(' ')[0] }}!</h1><p class="muted">Tem alguma dúvida? Estamos aqui para ajudar você a navegar com mais segurança.</p></div>
+  <div class="welcome-shield">✓</div>
+</div>
+<section class="hero-panel">
+  <div class="hero-copy"><span class="pill pill-blue">ASSISTENTE INTELIGENTE</span><h2>Ficou em dúvida se uma mensagem é confiável?</h2><p>Descreva o que aconteceu, cole uma mensagem suspeita ou tire uma dúvida sobre segurança digital.</p><a class="btn btn-light" href="{{ url_for('chat') }}">Analisar uma situação <span>→</span></a></div>
+  <div class="hero-art"><div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="shield-large">✓</div><span class="spark spark-one">✦</span><span class="spark spark-two">✧</span></div>
+</section>
+<section class="section-block">
+  <div class="section-heading"><div><h2>Como podemos ajudar?</h2><p class="muted">Escolha uma opção para começar.</p></div></div>
+  <div class="quick-grid">
+    <a class="quick-card" href="{{ url_for('chat') }}"><span class="quick-icon blue">⌕</span><strong>Verificar mensagem</strong><small>Descubra sinais de golpe em mensagens recebidas.</small><span class="card-arrow">→</span></a>
+    <a class="quick-card" href="{{ url_for('chat') }}"><span class="quick-icon purple">↗</span><strong>Tenho um link suspeito</strong><small>Saiba como agir antes de clicar.</small><span class="card-arrow">→</span></a>
+    <a class="quick-card" href="{{ url_for('knowledge') }}"><span class="quick-icon green">▤</span><strong>Aprender sobre segurança</strong><small>Veja dicas para se proteger na internet.</small><span class="card-arrow">→</span></a>
+  </div>
+</section>
+<section class="section-block two-column">
+  <div><div class="section-heading"><h2>Conversas recentes</h2><a href="{{ url_for('history') }}">Ver histórico →</a></div>
+    {% if conversations %}<div class="list-card">{% for c in conversations %}<a class="conversation-row" href="{{ url_for('chat', id=c.id) }}"><span class="conversation-icon">◷</span><span><strong>{{ c.title }}</strong><small>{{ c.created_at.strftime('%d/%m/%Y às %H:%M') }}</small></span><span class="row-arrow">→</span></a>{% endfor %}</div>{% else %}<div class="empty-state compact"><span>◷</span><strong>Nenhuma conversa ainda</strong><p>Suas análises aparecerão aqui.</p></div>{% endif %}
+  </div>
+  <div><div class="section-heading"><h2>Dica de segurança</h2></div><div class="tip-card"><span class="tip-icon">✦</span><h3>Nunca compartilhe códigos</h3><p>Bancos e empresas sérias não precisam que você informe sua senha ou código de autenticação por telefone ou mensagem.</p><a href="{{ url_for('knowledge') }}">Mais dicas de segurança →</a></div></div>
+</section>
+{% endblock %}

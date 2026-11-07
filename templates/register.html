@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Criar conta | CyberGuard{% endblock %}
+{% block auth_content %}
+<div class="auth-page">
+  <button class="icon-button font-toggle auth-font" aria-label="Aumentar letra" title="Aumentar letra">A+</button>
+  <button class="icon-button theme-toggle auth-theme" aria-label="Alternar tema">☾</button>
+  <div class="auth-brand"><div class="brand-symbol">✓</div><h1>Cyber<span class="brand-accent">Guard</span></h1><p>Crie seu espaço de segurança digital.</p></div>
+  <section class="auth-card">
+    <h2>Criar sua conta</h2><p class="muted">Preencha os dados para começar.</p>
+    {% with messages = get_flashed_messages(with_categories=true) %}{% if messages %}{% for category, message in messages %}<div class="flash {{ category }}">{{ message }}</div>{% endfor %}{% endif %}{% endwith %}
+    <form method="POST" class="form-stack">
+      <label for="name">Nome</label><input id="name" name="name" placeholder="Como podemos chamar você?" required>
+      <label for="email">E-mail</label><input id="email" name="email" type="email" placeholder="seuemail@exemplo.com" required>
+      <label for="password">Senha (mínimo 8 caracteres)</label><input id="password" name="password" type="password" minlength="8" required>
+      <button class="btn btn-primary btn-full" type="submit">Criar conta <span>→</span></button>
+    </form>
+    <p class="auth-switch">Já tem uma conta? <a href="{{ url_for('login') }}">Entrar</a></p>
+  </section>
+</div>
+{% endblock %}

@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% block title %}Central de conhecimento | CyberGuard{% endblock %}
+{% block content %}
+<div class="page-heading"><div><div class="eyebrow">APRENDA A SE PROTEGER</div><h1>Central de conhecimento</h1><p class="muted">Informação simples para ajudar você a reconhecer riscos digitais.</p></div></div>
+<form class="search-form" method="GET"><input name="q" value="{{ query }}" placeholder="Pesquisar assunto, por exemplo: Pix, senha ou mensagem"><button class="btn btn-primary">Pesquisar</button></form>
+<div class="knowledge-grid">{% for item in articles %}<a class="knowledge-card" href="{{ url_for('article', article_id=item.id) }}"><span class="knowledge-category">{{ item.category }}</span><h2>{{ item.title }}</h2><p>{{ item.summary }}</p><span class="read-more">Ler orientação →</span></a>{% else %}<div class="empty-state"><h2>Nenhum conteúdo encontrado</h2><p>Tente pesquisar por outro termo.</p></div>{% endfor %}</div>
+{% endblock %}
